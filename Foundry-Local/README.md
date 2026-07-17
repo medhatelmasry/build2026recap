@@ -164,7 +164,7 @@ Interactive mode, please enter your prompt<br />
 
 > ```bash
 > foundry model run qwen2.5-0.5b-instruct-generic-cpu
-```
+> ```
 
 ___
 
