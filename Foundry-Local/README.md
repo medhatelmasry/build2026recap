@@ -153,3 +153,148 @@ Interactive mode, please enter your prompt<br />
 </details>
 
 ___
+
+The above puts the user in a CLI interactive mode. You can then prompt the model. Let's ask the model to create for us a C# program that does temperature conversion. Type in the following prompt:
+
+```bash
+Write a C# console app that converts temperature from Celcius to Fahrenheit and also from Fahrenheit to Celcius.
+```
+
+<details>
+<summary>
+Expected output:
+</summary>
+🧠 Thinking...<br />
+🤖 Certainly! Below is a simple console application written in C# that takes user input for Celsius temperature and converts it to either Fahrenheit or vice versa.
+
+```csharp
+using System;
+using System.Windows.Forms;
+
+namespace TemperatureConverterApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine("Enter the Temperature (in Celcius): ");
+                int celsius = Convert.ToInt32(Console.ReadLine());
+
+                bool convertToFahrenheit = false;
+                string result;
+
+                if (Convert.ToBoolean(calculateCtoF(celsius)) == true)
+                    result = "Celsius to Fahrenheit: ";
+                else
+                    result = "Temperature not converted";
+
+                result += $"Celsius {result}";
+                
+                if (convertToFahrenheit) 
+                {
+                    Console.WriteLine($"Result: Fahrenheits");
+                    return;
+                }
+
+                Console.WriteLine(result);
+            }
+            catch
+            {
+                Console.WriteLine("Invalid Input");
+            }
+        }
+
+        public static bool calculateCtoF(int celsius)
+        {
+            double fahrenheit = 9/5 * celsius + 32;
+            double result = Math.Round(fahrenheit, 1);
+            
+            // Round down to the nearest integer since temperatures must be whole numbers
+            if (fahrenheit.ToString() != "0")
+                return true;
+            else
+                return false;
+        }
+        
+        public static bool calculateFtoc(double fahrenheit)
+        {
+            double celsius = fahrenheit - 32 * 5 / 9;
+            double result = Math.Round(celsius, 1);
+
+            // Round down to the nearest integer since temperatures must be whole numbers
+            if (celsius.ToString() != "0")
+                return true;
+            else
+                return false;
+        }
+    }
+}
+```
+
+### Explanation:
+
+1. **Imports**: The code starts with importing necessary namespaces (`System` and `System.Windows.Forms`). It's assumed you have this namespace available.
+
+2. **Program Class**:
+   - This contains the main program logic.
+   
+3. **calculateCtoF Function**:
+   - Calculates the temperature in Fahrenheit given Celsius temperature.
+   - If successful, calculates the equivalent number of degrees Celsius based on the provided value and rounds it to the closest integer.
+   - Outputs the result along with any additional information like "Celsius" or "Temperature not converted".
+
+4. **calculateFtoc Function**:
+   - Calculates the equivalent temperature in Celcius given the equivalent degrees Fahrenheit.
+   - Same as `calculateCtoF`, but used for converting degrees Fahrenheit back to Celsius.
+
+### Example Usage:
+
+If you run the program, pressing the keyboard will take an input to calculate the correct conversion type and output results accordingly.
+
+Example Input: 25
+
+- If calculated using Celsius, it will print: "Celsius", then "25".
+- If converted to Fahrenheit, it will print: "Temperature not converted", then "25". 
+
+This example only demonstrates basic conversions between the two temperature scales and does not handle invalid inputs like non-numerical characters which would throw exceptions during parsing.
+</details>
+
+___
+
+#### To exit CLI mode, type:
+
+```bash
+/exit
+```
+
+___
+
+#### To stop the Foundry service:
+
+```bash
+foundry service stop
+```
+
+<details>
+<summary>
+Expected output:
+</summary>
+🔴 Service is stopped.
+</details>
+
+___
+
+#### To start the Foundry service:
+
+```bash
+foundry service start
+```
+
+<details>
+<summary>
+Expected output:
+</summary>
+🟢 Service is Started on http://127.0.0.1:64398/, PID 9459!
+</details>
