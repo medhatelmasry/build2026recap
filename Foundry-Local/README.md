@@ -154,7 +154,7 @@ Interactive mode, please enter your prompt<br />
 <br />
 
 > [!TIP]
-> If you get an error when running a model, it may mean that your hardware is incompatible with the specific model that was downloaded. You can try looking ar variants of that mode for different processor configurations. To view the variants for a model (Example: qwen2.5-0.5b), type the following command:
+> If you get an error when running a model, it may mean that your hardware is incompatible with the specific model that was downloaded. You can try looking ar variants of that model for different processor configurations. To view the variants for a model (Example: qwen2.5-0.5b), type the following command:
 >
 > ```bash
 > foundry model info qwen2.5-0.5b
