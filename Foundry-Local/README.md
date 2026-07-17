@@ -168,7 +168,7 @@ Interactive mode, please enter your prompt<br />
 
 ___
 
-The above puts the user in a CLI interactive mode. You can then prompt the model. Let's ask the model to create for us a C# program that does temperature conversion. Type in the following prompt:
+The above puts the user in a CLI interactive mode. You can then send prompt to the model. Let's ask the model to create for us a C# program that does temperature conversion. Type in the following prompt:
 
 ```
 Write a C# console app that converts temperature from C to F and also from F to C.
