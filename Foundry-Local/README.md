@@ -151,6 +151,20 @@ Press Ctrl+C to cancel generation. Type /exit to leave the chat.<br />
 Interactive mode, please enter your prompt<br />
 > 
 </details>
+<br />
+
+[!TIP]
+If you get an error when running a model, it may mean that your hardware is incompatible with the specific model that was downloaded. You can then try looking ar variants of that mode for different processor configurations. To view the variants for a model (Example: qwen2.5-0.5b), type the following command:
+
+```bash
+foundry model info qwen2.5-0.5b
+```
+
+You can then try one of the variants like qwen2.5-0.5b-instruct-generic-cpu with:
+
+```bash
+foundry model run qwen2.5-0.5b-instruct-generic-cpu
+```
 
 ___
 
@@ -263,7 +277,7 @@ This example only demonstrates basic conversions between the two temperature sca
 
 ___
 
-#### To exit CLI mode, type:
+#### Exit CLI mode, type:
 
 ```bash
 /exit
