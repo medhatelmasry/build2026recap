@@ -22,7 +22,7 @@ brew trust microsoft/foundrylocal
 brew install foundrylocal
 ```
 
-### CLI commands
+## Exporing CLI commands
 
 Try the following Foundry Local CLI commands:
 
@@ -298,3 +298,148 @@ Expected output:
 </summary>
 🟢 Service is Started on http://127.0.0.1:64398/, PID 9459!
 </details>
+
+## Developing a C# app using Foundry Local SDK
+
+The Foundry Local SDK enables you to ship AI features in your applications that are capable of using local AI models through a simple and intuitive API. The SDK abstracts away the complexities of managing AI models and provides a seamless experience for integrating local AI capabilities into your applications. 
+
+```bash
+dotnet new console -o FoundryLocalConsoleApp
+cd FoundryLocalConsoleApp
+dotnet add package Microsoft.AI.Foundry.Local
+dotnet add package Microsoft.Extensions.Logging
+dotnet add package Betalgo.Ranul.OpenAI -v 9.1.0
+```
+
+Add this to the `.csproj` file right above `</PropertyGroup>`:
+
+```xml
+<RuntimeIdentifiers>osx-arm64;osx-x64;win-x64;linux-x64</RuntimeIdentifiers>
+```
+
+Replace `Program.cs` with this code that asks the `qwen2.5-0.5b` local AI model the question: `Where did coffee come from?`:
+
+```C#
+using Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+using Microsoft.AI.Foundry.Local;
+using Microsoft.Extensions.Logging;
+
+CancellationToken ct = new();
+
+var config = new Configuration {
+    AppName = "foundry_local_samples",
+    LogLevel = Microsoft.AI.Foundry.Local.LogLevel.Information
+};
+
+using var loggerFactory = LoggerFactory.Create(builder => {
+    // Intentionally no providers configured; this still yields a valid ILogger instance.
+});
+ILogger logger = loggerFactory.CreateLogger("FoundryLocalConsoleApp");
+
+// Initialize the singleton instance.
+await FoundryLocalManager.CreateAsync(config, logger);
+var mgr = FoundryLocalManager.Instance;
+
+
+// Discover available execution providers and their registration status.
+var eps = mgr.DiscoverEps();
+int maxNameLen = 30;
+Console.WriteLine("Available execution providers:");
+Console.WriteLine($"  {"Name".PadRight(maxNameLen)}  Registered");
+Console.WriteLine($"  {new string('─', maxNameLen)}  {"──────────"}");
+foreach (var ep in eps) {
+    Console.WriteLine($"  {ep.Name.PadRight(maxNameLen)}  {ep.IsRegistered}");
+}
+
+// Download and register all execution providers with per-EP progress.
+// EP packages include dependencies and may be large.
+// Download is only required again if a new version of the EP is released.
+// For cross platform builds there is no dynamic EP download and this will return immediately.
+Console.WriteLine("\nDownloading execution providers:");
+if (eps.Length > 0) {
+    string currentEp = "";
+    await mgr.DownloadAndRegisterEpsAsync((epName, percent) => {
+        if (epName != currentEp) {
+            if (currentEp != "") {
+                Console.WriteLine();
+            }
+            currentEp = epName;
+        }
+        Console.Write($"\r  {epName.PadRight(maxNameLen)}  {percent,6:F1}%");
+    });
+    Console.WriteLine();
+} else {
+    Console.WriteLine("No execution providers to download.");
+}
+
+
+// Get the model catalog
+var catalog = await mgr.GetCatalogAsync();
+
+
+// Get a model using an alias.
+var model = await catalog.GetModelAsync("qwen2.5-0.5b") ?? throw new Exception("Model not found");
+
+// Download the model (the method skips download if already cached)
+await model.DownloadAsync(progress =>{
+    Console.Write($"\rDownloading model: {progress:F2}%");
+    if (progress >= 100f)
+    {
+        Console.WriteLine();
+    }
+});
+
+// Load the model
+Console.Write($"Loading model {model.Id}...");
+await model.LoadAsync();
+Console.WriteLine("done.");
+
+// Get a chat client
+var chatClient = await model.GetChatClientAsync();
+
+// Create a chat message
+List<ChatMessage> messages = new() {
+    new ChatMessage { Role = "user", Content = "Where did coffee come from?" }
+};
+
+// Get a streaming chat completion response
+Console.WriteLine("Chat completion response:");
+var streamingResponse = chatClient.CompleteChatStreamingAsync(messages, ct);
+await foreach (var chunk in streamingResponse) {
+    Console.Write(chunk.Choices[0].Message.Content);
+    Console.Out.Flush();
+}
+Console.WriteLine();
+
+// Tidy up - unload the model
+await model.UnloadAsync();
+```
+
+<details>
+<summary>
+Expected output:
+</summary>
+
+```bash
+Available execution providers:
+  Name                            Registered
+  ──────────────────────────────  ──────────
+  WebGpuExecutionProvider         False
+
+Downloading execution providers:
+  WebGpuExecutionProvider          100.0%
+Loading model qwen2.5-0.5b-instruct-generic-gpu:4...done.
+Chat completion response:
+Coffee originated in the Ethiopian Highlands and later spread to other regions due to various factors such as trade, migration, and disease. It''s believed that people first brought coffee from Ethiopia with them when they migrated to other parts of the world. The earliest known records suggest that the first drink made from coffee was consumed by the Shas people in West Africa.
+
+As the demand for coffee grew, more people began to experiment with making their own beverages. By 1750, coffee had been developed into its current form in the Middle East and Asia. It wasn''t until 1826 that an American named Robert Brown invented espresso, which has since become one of the most popular beverages worldwide.
+
+The history of coffee is a story of innovation, trade, and cultural exchange over centuries. Coffee has played a significant role in many societies around the world and continues to be enjoyed today through different methods and traditions.
+```
+</details>
+
+___
+
+For more information, see the [Foundry Local SDK reference][1].
+
+[1]: https://learn.microsoft.com/en-us/azure/foundry-local/reference/reference-sdk-current
