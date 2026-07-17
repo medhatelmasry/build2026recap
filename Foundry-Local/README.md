@@ -2,7 +2,7 @@
 
 ## What is Microsoft Foundry Local?
 
-Foundry Local is a local AI solution that runs entirely on the user's device. It also provides an SDK (C#, JavaScript, Rust, and Python) that helps you build app that interact with Foundry Local.
+Foundry Local is an AI solution that runs entirely on the user's device. It also provides an SDK (C#, JavaScript, Rust, and Python) that helps you build apps that interact with Foundry Local.
 
 ## Installation
 
@@ -26,7 +26,7 @@ brew install foundrylocal
 
 Try the following Foundry Local CLI commands:
 
-#### To detect the CLI version:
+#### Detect the CLI version:
 
 ```bash
 foundry --version
@@ -41,7 +41,7 @@ Expected output:
 
 ---
 
-#### To view the list of CLI commands:
+#### View the list of CLI commands:
 
 ```bash
 foundry --help
@@ -78,7 +78,7 @@ Commands:<br />
 
 ___
 
-#### To download a model into local cache:
+#### Download a model into local cache:
 
 ```bash
 foundry model download qwen2.5-0.5b
@@ -99,7 +99,7 @@ Tips:<br />
 </details>
 
 ___
-#### To list models in local cache:
+#### List models in local cache:
 
 ```bash
 foundry cache list
@@ -113,7 +113,7 @@ Expected output:
 </details>
 
 ___
-#### To remove a model from local cache:
+#### Remove a model from local cache:
 
 ```bash
 foundry cache remove qwen2.5-0.5b
@@ -130,7 +130,7 @@ Deleted model qwen2.5-0.5b-instruct-generic-gpu:4 from the cache.
 </details>
 
 ___
-#### To download an run a model:
+#### Download and run a model:
 
 ```bash
 foundry model run qwen2.5-0.5b
@@ -271,7 +271,7 @@ ___
 
 ___
 
-#### To stop the Foundry service:
+#### Stop the Foundry service:
 
 ```bash
 foundry service stop
@@ -286,7 +286,7 @@ Expected output:
 
 ___
 
-#### To start the Foundry service:
+#### Start the Foundry service:
 
 ```bash
 foundry service start
@@ -299,7 +299,7 @@ Expected output:
 🟢 Service is Started on http://127.0.0.1:64398/, PID 9459!
 </details>
 
-## Developing a C# app using Foundry Local SDK
+## Develop a C# app using Foundry Local SDK
 
 The Foundry Local SDK enables you to ship AI features in your applications that are capable of using local AI models through a simple and intuitive API. The SDK abstracts away the complexities of managing AI models and provides a seamless experience for integrating local AI capabilities into your applications. 
 
