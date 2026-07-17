@@ -1,0 +1,432 @@
+<h1 id="coding-with-microsoft-foundry-local">Coding with Microsoft Foundry Local</h1>
+<h2 id="what-is-microsoft-foundry-local-">What is Microsoft Foundry Local?</h2>
+<p>Foundry Local is an AI solution that runs entirely on the user&#39;s device. It also provides an SDK (C#, JavaScript,
+    Rust, and Python) that helps you build apps that interact with Foundry Local.</p>
+<h2 id="installation">Installation</h2>
+<p>To install Foundry Local, follow these steps:</p>
+<h3 id="windows">Windows</h3>
+<pre><code class="lang-bash">winget <span class="hljs-keyword">install</span> Microsoft.FoundryLocal
+</code></pre>
+<h3 id="macos-only-on-silicon-chips-">macOS (only on silicon chips)</h3>
+<pre><code class="lang-bash"><span class="hljs-keyword">brew </span>tap microsoft/foundrylocal
+<span class="hljs-keyword">brew </span>trust microsoft/foundrylocal
+<span class="hljs-keyword">brew </span>install foundrylocal
+</code></pre>
+<h2 id="exporing-cli-commands">Exporing CLI commands</h2>
+<p>Try the following Foundry Local CLI commands:</p>
+<h4 id="detect-the-cli-version-">Detect the CLI version:</h4>
+<pre><code class="lang-bash">foundry <span class="hljs-comment">--version</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    0.8.119
+</div>
+
+<hr>
+<h4 id="view-the-list-of-cli-commands-">View the list of CLI commands:</h4>
+<pre><code class="lang-bash">foundry <span class="hljs-comment">--help</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    Description:<br />
+    Foundry Local CLI: Run AI models on your device.
+
+    🚀 Getting started:
+
+    1. To view available models: foundry model list
+    2. To run a model: foundry model run &lt;model&gt;
+
+        EXAMPLES:<br />
+        foundry model run phi-3-mini-4k
+
+        Usage:<br />
+        foundry [command] [options]
+
+        Options:<br />
+        -?, -h, --help Show help and usage information<br />
+        --version Show version information<br />
+        --license Display foundry license information
+
+        Commands:<br />
+        <strong>model</strong> Discover, run and manage models<br />
+        <strong>cache</strong> Manage the local cache<br />
+        <strong>service</strong> Manage the local model inference service
+</div>
+
+<hr>
+<h4 id="download-a-model-into-local-cache-">Download a model into local cache:</h4>
+<pre><code class="lang-bash"><span class="hljs-selector-tag">foundry</span> <span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">download</span> <span class="hljs-selector-tag">qwen2</span><span class="hljs-selector-class">.5-0</span><span class="hljs-selector-class">.5b</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    Downloading qwen2.5-0.5b-instruct-generic-gpu:4...
+
+    . . . T R U N C A T E D . . .
+
+    [################################## ] 94.85 % [Time remaining: about 1s]<br /> [################################## ]
+    95.22 % [Time remaining: about 1s]<br /> [################################## ] 95.59 % [Time remaining: about
+    1s]<br />[################################## ] 95.96 % [Time remaining: about
+    1s]<br />[################################## ] 96.33 % [Time remaining: about
+    1s]<br />[################################## ] 96.69 % [Time remaining: about
+    1s]<br />[################################## ] 97.06 % [Time remaining: about
+    1s]<br />[################################### ] 97.43 % [Time remaining: about
+    1s]<br />[################################### ] 97.79 % [Time remaining: about
+    1s]<br />[################################### ] 98.16 % [Time remaining: about
+    1s]<br />[################################### ] 98.53 % [Time remaining: about
+    1s]<br />[################################### ] 98.90 % [Time remaining: about
+    1s]<br />[################################### ] 99.27 % [Time remaining: about
+    1s]<br />[################################### ] 99.63 % [Time remaining: about
+    1s]<br />[####################################] 100.00 % [Time remaining: about
+    0s]<br />[####################################] 100.00 % [Time remaining: about 0s] 85.9 MB/s <br />
+    Tips:<br />
+    - To find model cache location use: foundry cache location<br />
+    - To find models already downloaded use: foundry cache ls
+</div>
+
+<hr>
+<h4 id="list-models-in-local-cache-">List models in local cache:</h4>
+<pre><code class="lang-bash">foundry <span class="hljs-keyword">cache</span> <span class="hljs-built_in">list</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    💾 qwen2.5-0.5b &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    qwen2.5-0.5b-instruct-generic-gpu:4
+</div>
+
+<hr>
+<h4 id="remove-a-model-from-local-cache-">Remove a model from local cache:</h4>
+<pre><code class="lang-bash"><span class="hljs-selector-tag">foundry</span> <span class="hljs-selector-tag">cache</span> <span class="hljs-selector-tag">remove</span> <span class="hljs-selector-tag">qwen2</span><span class="hljs-selector-class">.5-0</span><span class="hljs-selector-class">.5b</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    ⚠️ This will delete model &#39;qwen2.5-0.5b (qwen2.5-0.5b-instruct-generic-gpu:4)&#39; from cache.<br />
+    ⚠️ Are you sure you want to delete this model from the local cache? (y/n)<br />
+    y<br />
+    Deleted model qwen2.5-0.5b-instruct-generic-gpu:4 from the cache.
+</div>
+
+<hr>
+<h4 id="download-and-run-a-model-">Download and run a model:</h4>
+<pre><code class="lang-bash"><span class="hljs-selector-tag">foundry</span> <span class="hljs-selector-tag">model</span> <span class="hljs-selector-tag">run</span> <span class="hljs-selector-tag">qwen2</span><span class="hljs-selector-class">.5-0</span><span class="hljs-selector-class">.5b</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    Downloading qwen2.5-0.5b-instruct-generic-gpu:4...<br />
+    [####################################] 100.00 % [Time remaining: about 0s]&nbsp;&nbsp;105.2 MB/s<br />
+    🕛 Loading model... <br />
+    🟢 Model qwen2.5-0.5b-instruct-generic-gpu:4 loaded successfully<br />
+    <br />
+    Interactive Chat. Enter /? or /help for help.<br />
+    Press Ctrl+C to cancel generation. Type /exit to leave the chat.<br />
+    <br />
+    Interactive mode, please enter your prompt<br />
+    &gt;
+</div>
+<br />
+
+&gt; [!TIP]
+&gt; If you get an error when running a model, it may mean that your hardware is incompatible with the specific model
+that was downloaded. You can try looking ar variants of that model for different processor configurations. To view the
+variants for a model (Example: qwen2.5-0.5b), type the following command:
+&gt;
+&gt; <code>bash
+&gt; foundry model info qwen2.5-0.5b
+&gt;</code>
+&gt;
+&gt; You can then try one of the variants like <code>qwen2.5-0.5b-instruct-generic-cpu</code> with:
+&gt;
+&gt; <code>bash
+&gt; foundry model run qwen2.5-0.5b-instruct-generic-cpu
+&gt;</code>
+
+___
+
+The above puts the user in a CLI interactive mode. You can then send prompt to the model. Let&#39;s ask the model to
+create for us a C# program that does temperature conversion. Type in the following prompt:
+
+<code>Write a C# console app that converts temperature from C to F and also from F to C.</code>
+
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    🧠 Thinking...<br />
+    🤖 Certainly! Below is a simple console application written in C# that takes user input for Celsius temperature and
+    converts it to either Fahrenheit or vice versa.
+
+    <code>csharp
+using System;
+using System.Windows.Forms;
+
+namespace TemperatureConverterApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Console.WriteLine(&quot;Enter the Temperature (in Celcius): &quot;);
+                int celsius = Convert.ToInt32(Console.ReadLine());
+
+                bool convertToFahrenheit = false;
+                string result;
+
+                if (Convert.ToBoolean(calculateCtoF(celsius)) == true)
+                    result = &quot;Celsius to Fahrenheit: &quot;;
+                else
+                    result = &quot;Temperature not converted&quot;;
+
+                result += $&quot;Celsius {result}&quot;;
+
+                if (convertToFahrenheit) 
+                {
+                    Console.WriteLine($&quot;Result: Fahrenheits&quot;);
+                    return;
+                }
+
+                Console.WriteLine(result);
+            }
+            catch
+            {
+                Console.WriteLine(&quot;Invalid Input&quot;);
+            }
+        }
+
+        public static bool calculateCtoF(int celsius)
+        {
+            double fahrenheit = 9/5 * celsius + 32;
+            double result = Math.Round(fahrenheit, 1);
+
+            // Round down to the nearest integer since temperatures must be whole numbers
+            if (fahrenheit.ToString() != &quot;0&quot;)
+                return true;
+            else
+                return false;
+        }
+
+        public static bool calculateFtoc(double fahrenheit)
+        {
+            double celsius = fahrenheit - 32 * 5 / 9;
+            double result = Math.Round(celsius, 1);
+
+            // Round down to the nearest integer since temperatures must be whole numbers
+            if (celsius.ToString() != &quot;0&quot;)
+                return true;
+            else
+                return false;
+        }
+    }
+}</code>
+
+    ### Explanation:
+
+    1. <strong>Imports</strong>: The code starts with importing necessary namespaces (<code>System</code> and
+    <code>System.Windows.Forms</code>). It&#39;s assumed you have this namespace available.
+
+    2. <strong>Program Class</strong>:
+    - This contains the main program logic.
+
+    3. <strong>calculateCtoF Function</strong>:
+    - Calculates the temperature in Fahrenheit given Celsius temperature.
+    - If successful, calculates the equivalent number of degrees Celsius based on the provided value and rounds it to
+    the closest integer.
+    - Outputs the result along with any additional information like &quot;Celsius&quot; or &quot;Temperature not
+    converted&quot;.
+
+    4. <strong>calculateFtoc Function</strong>:
+    - Calculates the equivalent temperature in Celcius given the equivalent degrees Fahrenheit.
+    - Same as <code>calculateCtoF</code>, but used for converting degrees Fahrenheit back to Celsius.
+
+    ### Example Usage:
+
+    If you run the program, pressing the keyboard will take an input to calculate the correct conversion type and output
+    results accordingly.
+
+    Example Input: 25
+
+    - If calculated using Celsius, it will print: &quot;Celsius&quot;, then &quot;25&quot;.
+    - If converted to Fahrenheit, it will print: &quot;Temperature not converted&quot;, then &quot;25&quot;.
+
+    This example only demonstrates basic conversions between the two temperature scales and does not handle invalid
+    inputs like non-numerical characters which would throw exceptions during parsing.
+</div>
+
+<hr>
+<h4 id="exit-cli-mode-type-">Exit CLI mode, type:</h4>
+<pre><code class="lang-bash">/<span class="hljs-keyword">exit</span>
+</code></pre>
+<hr>
+<h4 id="stop-the-foundry-service-">Stop the Foundry service:</h4>
+<pre><code class="lang-bash">foundry service <span class="hljs-built_in">stop</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    🔴 Service is stopped.
+</div>
+
+<hr>
+<h4 id="start-the-foundry-service-">Start the Foundry service:</h4>
+<pre><code class="lang-bash">foundry service <span class="hljs-literal">start</span>
+</code></pre>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+    🟢 Service is Started on <a href="http://127.0.0.1:64398/">http://127.0.0.1:64398/</a>, PID 9459!
+</div>
+
+<h2 id="develop-a-c-app-using-foundry-local-sdk">Develop a C# app using Foundry Local SDK</h2>
+<p>The Foundry Local SDK enables you to ship AI features in your applications that are capable of using local AI models
+    through a simple and intuitive API. The SDK abstracts away the complexities of managing AI models and provides a
+    seamless experience for integrating local AI capabilities into your applications. </p>
+<pre><code class="lang-bash">dotnet new console -o FoundryLocalConsoleApp
+cd FoundryLocalConsoleApp
+dotnet add package Microsoft<span class="hljs-selector-class">.AI</span><span class="hljs-selector-class">.Foundry</span><span class="hljs-selector-class">.Local</span>
+dotnet add package Microsoft<span class="hljs-selector-class">.Extensions</span><span class="hljs-selector-class">.Logging</span>
+dotnet add package Betalgo<span class="hljs-selector-class">.Ranul</span><span class="hljs-selector-class">.OpenAI</span> -v <span class="hljs-number">9.1</span>.<span class="hljs-number">0</span>
+</code></pre>
+<p>Add this to the <code>.csproj</code> file right above <code>&lt;/PropertyGroup&gt;</code>:</p>
+<pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-name">RuntimeIdentifiers</span>&gt;</span>osx-arm64;osx-x64;win-x64;linux-x64<span class="hljs-tag">&lt;/<span class="hljs-name">RuntimeIdentifiers</span>&gt;</span>
+</code></pre>
+<p>Replace <code>Program.cs</code> with this code that asks the <code>qwen2.5-0.5b</code> local AI model the question:
+    <code>Where did coffee come from?</code>:</p>
+<pre><code class="lang-C#"><span class="hljs-keyword">using</span> Betalgo.Ranul.OpenAI.ObjectModels.RequestModels;
+<span class="hljs-keyword">using</span> Microsoft.AI.Foundry.Local;
+<span class="hljs-keyword">using</span> Microsoft.Extensions.Logging;
+
+CancellationToken ct = <span class="hljs-keyword">new</span>();
+
+<span class="hljs-keyword">var</span> config = <span class="hljs-keyword">new</span> Configuration {
+    AppName = <span class="hljs-string">"foundry_local_samples"</span>,
+    LogLevel = Microsoft.AI.Foundry.Local.LogLevel.Information
+};
+
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">var</span> loggerFactory = LoggerFactory.Create(builder =&gt; {
+    <span class="hljs-comment">// Intentionally no providers configured; this still yields a valid ILogger instance.</span>
+});
+ILogger logger = loggerFactory.CreateLogger(<span class="hljs-string">"FoundryLocalConsoleApp"</span>);
+
+<span class="hljs-comment">// Initialize the singleton instance.</span>
+<span class="hljs-keyword">await</span> FoundryLocalManager.CreateAsync(config, logger);
+<span class="hljs-keyword">var</span> mgr = FoundryLocalManager.Instance;
+
+
+<span class="hljs-comment">// Discover available execution providers and their registration status.</span>
+<span class="hljs-keyword">var</span> eps = mgr.DiscoverEps();
+<span class="hljs-keyword">int</span> maxNameLen = <span class="hljs-number">30</span>;
+Console.WriteLine(<span class="hljs-string">"Available execution providers:"</span>);
+Console.WriteLine(<span class="hljs-string">$"  <span class="hljs-subst">{<span class="hljs-string">"Name"</span>.PadRight(maxNameLen)}</span>  Registered"</span>);
+Console.WriteLine(<span class="hljs-string">$"  <span class="hljs-subst">{new <span class="hljs-keyword">string</span>(<span class="hljs-string">'─'</span>, maxNameLen)}</span>  <span class="hljs-subst">{<span class="hljs-string">"──────────"</span>}</span>"</span>);
+<span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> ep <span class="hljs-keyword">in</span> eps) {
+    Console.WriteLine(<span class="hljs-string">$"  <span class="hljs-subst">{ep.Name.PadRight(maxNameLen)}</span>  <span class="hljs-subst">{ep.IsRegistered}</span>"</span>);
+}
+
+<span class="hljs-comment">// Download and register all execution providers with per-EP progress.</span>
+<span class="hljs-comment">// EP packages include dependencies and may be large.</span>
+<span class="hljs-comment">// Download is only required again if a new version of the EP is released.</span>
+<span class="hljs-comment">// For cross platform builds there is no dynamic EP download and this will return immediately.</span>
+Console.WriteLine(<span class="hljs-string">"\nDownloading execution providers:"</span>);
+<span class="hljs-keyword">if</span> (eps.Length &gt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">string</span> currentEp = <span class="hljs-string">""</span>;
+    <span class="hljs-keyword">await</span> mgr.DownloadAndRegisterEpsAsync((epName, percent) =&gt; {
+        <span class="hljs-keyword">if</span> (epName != currentEp) {
+            <span class="hljs-keyword">if</span> (currentEp != <span class="hljs-string">""</span>) {
+                Console.WriteLine();
+            }
+            currentEp = epName;
+        }
+        Console.Write(<span class="hljs-string">$"\r  <span class="hljs-subst">{epName.PadRight(maxNameLen)}</span>  <span class="hljs-subst">{percent,<span class="hljs-number">6</span>:F1}</span>%"</span>);
+    });
+    Console.WriteLine();
+} <span class="hljs-keyword">else</span> {
+    Console.WriteLine(<span class="hljs-string">"No execution providers to download."</span>);
+}
+
+
+<span class="hljs-comment">// Get the model catalog</span>
+<span class="hljs-keyword">var</span> catalog = <span class="hljs-keyword">await</span> mgr.GetCatalogAsync();
+
+
+<span class="hljs-comment">// Get a model using an alias.</span>
+<span class="hljs-keyword">var</span> model = <span class="hljs-keyword">await</span> catalog.GetModelAsync(<span class="hljs-string">"qwen2.5-0.5b"</span>) ?? <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"Model not found"</span>);
+
+<span class="hljs-comment">// Download the model (the method skips download if already cached)</span>
+<span class="hljs-keyword">await</span> model.DownloadAsync(progress =&gt;{
+    Console.Write(<span class="hljs-string">$"\rDownloading model: <span class="hljs-subst">{progress:F2}</span>%"</span>);
+    <span class="hljs-keyword">if</span> (progress &gt;= <span class="hljs-number">100</span>f)
+    {
+        Console.WriteLine();
+    }
+});
+
+<span class="hljs-comment">// Load the model</span>
+Console.Write(<span class="hljs-string">$"Loading model <span class="hljs-subst">{model.Id}</span>..."</span>);
+<span class="hljs-keyword">await</span> model.LoadAsync();
+Console.WriteLine(<span class="hljs-string">"done."</span>);
+
+<span class="hljs-comment">// Get a chat client</span>
+<span class="hljs-keyword">var</span> chatClient = <span class="hljs-keyword">await</span> model.GetChatClientAsync();
+
+<span class="hljs-comment">// Create a chat message</span>
+List&lt;ChatMessage&gt; messages = <span class="hljs-keyword">new</span>() {
+    <span class="hljs-keyword">new</span> ChatMessage { Role = <span class="hljs-string">"user"</span>, Content = <span class="hljs-string">"Where did coffee come from?"</span> }
+};
+
+<span class="hljs-comment">// Get a streaming chat completion response</span>
+Console.WriteLine(<span class="hljs-string">"Chat completion response:"</span>);
+<span class="hljs-keyword">var</span> streamingResponse = chatClient.CompleteChatStreamingAsync(messages, ct);
+<span class="hljs-keyword">await</span> <span class="hljs-keyword">foreach</span> (<span class="hljs-keyword">var</span> chunk <span class="hljs-keyword">in</span> streamingResponse) {
+    Console.Write(chunk.Choices[<span class="hljs-number">0</span>].Message.Content);
+    Console.Out.Flush();
+}
+Console.WriteLine();
+
+<span class="hljs-comment">// Tidy up - unload the model</span>
+<span class="hljs-keyword">await</span> model.UnloadAsync();
+</code></pre>
+<blockquote>
+    <p>[!NOTE]
+        Notice model <code>qwen2.5-0.5b</code> in the above code (around line 59). Change this to any other model or
+        variant of your choice.</p>
+</blockquote>
+<div class="details-block">
+        <p><strong>
+        Expected output:
+    </strong></p>
+
+    <code>bash
+Available execution providers:
+  Name                            Registered
+  ──────────────────────────────  ──────────
+  WebGpuExecutionProvider         False
+
+Downloading execution providers:
+  WebGpuExecutionProvider          100.0%
+Loading model qwen2.5-0.5b-instruct-generic-gpu:4...done.
+Chat completion response:
+Coffee originated in the Ethiopian Highlands and later spread to other regions due to various factors such as trade, migration, and disease. It&#39;&#39;s believed that people first brought coffee from Ethiopia with them when they migrated to other parts of the world. The earliest known records suggest that the first drink made from coffee was consumed by the Shas people in West Africa.
+
+As the demand for coffee grew, more people began to experiment with making their own beverages. By 1750, coffee had been developed into its current form in the Middle East and Asia. It wasn&#39;&#39;t until 1826 that an American named Robert Brown invented espresso, which has since become one of the most popular beverages worldwide.
+
+The history of coffee is a story of innovation, trade, and cultural exchange over centuries. Coffee has played a significant role in many societies around the world and continues to be enjoyed today through different methods and traditions.</code>
+</div>
+
+<hr>
+<p>For more information, see the <a
+        href="https://learn.microsoft.com/en-us/azure/foundry-local/reference/reference-sdk-current">Foundry Local SDK
+        reference</a>.</p>
