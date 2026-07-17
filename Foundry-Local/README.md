@@ -1,4 +1,4 @@
-# Coding with Microsoft Fondry Local
+# Coding with Microsoft Foundry Local
 
 ## What is Microsoft Foundry Local?
 
