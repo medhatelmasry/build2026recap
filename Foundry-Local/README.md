@@ -429,6 +429,9 @@ Console.WriteLine();
 await model.UnloadAsync();
 ```
 
+> [!NOTE]
+> Notice model `qwen2.5-0.5b` in line 59. Change this to any other model or variant of your choice.
+
 <details>
 <summary>
 Expected output:
