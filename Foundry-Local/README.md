@@ -163,7 +163,7 @@ Interactive mode, please enter your prompt<br />
 > You can then try one of the variants like qwen2.5-0.5b-instruct-generic-cpu with:
 
 > ```bash
-> > foundry model run qwen2.5-0.5b-instruct-generic-cpu
+> foundry model run qwen2.5-0.5b-instruct-generic-cpu
 ```
 
 ___
