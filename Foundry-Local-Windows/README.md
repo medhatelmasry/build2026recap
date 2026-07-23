@@ -286,7 +286,7 @@ Expected output:
 
 </details>
 
-## Develop a C# app using Foundry Local SDK
+### Develop a C# app using Foundry Local SDK
 
 The Foundry Local SDK enables you to ship AI features in your applications that are capable of using local AI models through a simple and intuitive API. The SDK abstracts away the complexities of managing AI models and provides a seamless experience for integrating local AI capabilities into your applications. 
 
