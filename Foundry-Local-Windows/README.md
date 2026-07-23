@@ -407,7 +407,7 @@ await model.UnloadAsync();
 Expected output:
 </summary>
 
-```bash
+```
 Available execution providers:
   Name                            Registered
   ──────────────────────────────  ──────────
