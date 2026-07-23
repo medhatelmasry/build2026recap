@@ -190,7 +190,6 @@ Write a C# console app that converts temperature from C to F and also from F to 
 <summary>
 Expected output:
 </summary>
-```
 Certainly! Below is a simple C# console application that takes user input for Celsius (C) or Fahrenheit (F) values and displays the corresponding temperature in both units.
 
 ```csharp
