@@ -14,7 +14,7 @@ To install Foundry Local, follow these steps:
 winget install Microsoft.FoundryLocal
 ```
 
-## Exporing CLI commands
+## Exploring CLI commands
 
 Try the following Foundry Local CLI commands:
 
@@ -43,7 +43,7 @@ foundry --help
 <summary>
 Expected output:
 </summary>
-```
+<pre>
 Description:
   Run generative AI models locally, privately, and offline.
 
@@ -81,7 +81,7 @@ Commands:
                              diagnostics
   transcribe                 Start an interactive local speech
                              transcription session or transcribe a file
-```
+</pre>
 </details>
 
 ___

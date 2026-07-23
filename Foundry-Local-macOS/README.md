@@ -22,7 +22,7 @@ brew trust microsoft/foundrylocal
 brew install foundrylocal
 ```
 
-## Exporing CLI commands
+## Exploring CLI commands
 
 Try the following Foundry Local CLI commands:
 
