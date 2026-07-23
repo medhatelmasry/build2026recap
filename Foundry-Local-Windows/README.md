@@ -96,7 +96,9 @@ foundry model download qwen2.5-0.5b
 <summary>
 Expected output:
 </summary>
+
 ![download foundry local](images/download.png)
+
 </details>
 
 ___
