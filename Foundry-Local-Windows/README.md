@@ -112,7 +112,9 @@ foundry cache list
 <summary>
 Expected output:
 </summary>
+
 ![foundry cache list](images/list.png)
+
 </details>
 
 ___
@@ -142,7 +144,9 @@ foundry run qwen2.5-0.5b
 My computer does not have an NPU, so the default model downloads OK, but cannot run.<br>
 Expected output:
 </summary>
+
 ![foundry run](images/foundry-run.png)
+
 </details>
 <br />
 
@@ -157,7 +161,9 @@ Expected output:
 <summary>
 Expected Output:
 </summary>
+
 ![foundry model info](images/foundry-model-info.png)
+
 </details>
 > You can then try one of the variants like `qwen2.5-0.5b-instruct-generic-cpu` with:
 >
@@ -168,7 +174,9 @@ Expected Output:
 <summary>
 Expected Output:
 </summary>
+
 ![foundry run qwen2.5-0.5b-instruct-generic-cpu](images/foundry-run2.png)
+
 </details>
 ___
 
@@ -274,7 +282,9 @@ foundry server start
 <summary>
 Expected output:
 </summary>
+
 ![foundry server start](images/server-start.png)
+
 </details>
 
 ## Develop a C# app using Foundry Local SDK
