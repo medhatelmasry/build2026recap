@@ -192,7 +192,7 @@ Expected output:
 </summary>
 Certainly! Below is a simple C# console application that takes user input for Celsius (C) or Fahrenheit (F) values and displays the corresponding temperature in both units.
 
-
+```c#
 using System;
 
 namespace TemperatureConverterApp
@@ -228,6 +228,7 @@ namespace TemperatureConverterApp
         }
     }
 }
+```
 
 ### Explanation:
 - **ConvertCelsius**: This method calculates the equivalent temperature in Celsius based on the formula `100 / 9.0 - 273.15 * Math.Pow(Math.E, cValue / 180)` where `Math.E` represents Euler's number which is approximately equal to 2.71828.
